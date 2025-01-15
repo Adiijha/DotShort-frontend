@@ -2,13 +2,35 @@ import axios from "axios";
 
 const BACKEND_URL = "http://localhost:5000";
 
-export const shortenUrl = async (url: string): Promise<string> => {
+interface ShortenUrlResponse {
+  shortUrl: string;
+}
+
+interface QrUrlResponse {
+  qrCode: string;
+}
+
+export const shortenUrl = async (url: string): Promise<ShortenUrlResponse> => {
   try {
     const response = await axios.post(`${BACKEND_URL}/shorten`, { longUrl: url });
-    return response.data.data.shortUrl;
-    
+    const { shortUrl } = response.data.data;
+
+    return { shortUrl };
   } catch (error) {
     console.error("Error shortening the URL:", error);
     throw new Error("Error shortening the URL. Please try again.");
   }
 };
+
+export const qrUrl = async (url: string): Promise<QrUrlResponse> => {
+  try {
+    const response = await axios.post(`${BACKEND_URL}/shorten`, { longUrl: url });
+    const { qrCode } = response.data.data;
+
+    return {qrCode };
+  } catch (error) {
+    console.error("Error shortening the QR:", error);
+    throw new Error("Error shortening the QR. Please try again.");
+  }
+};
+
