@@ -8,14 +8,36 @@ const QRPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [url, setUrl] = useState<string>("");
 
+  const MAX_FREE_QR = 5;
+
+  const getQrCount = () => {
+    const count = localStorage.getItem("qrCount");
+    return count ? parseInt(count, 10) : 0;
+  };
+
+  const incrementQrCount = () => {
+    const currentCount = getQrCount();
+    localStorage.setItem("qrCount", (currentCount + 1).toString());
+  };
+
   const handleQR = async (url: string) => {
     setError(null);
+
+    const currentCount = getQrCount();
+    if (currentCount >= MAX_FREE_QR) {
+      setError(
+        `You have reached the limit of ${MAX_FREE_QR} QR codes. Please log in for unlimited access.`
+      );
+      return;
+    }
+
     setLoading(true);
     setQrCode(null); // Clear the previous QR code
 
     try {
       const { qrCode } = await qrUrl(url);
       setQrCode(qrCode);
+      incrementQrCount(); // Increment the count on successful QR generation
     } catch (err) {
       setError("Failed to generate the QR Code. Please try again.");
     } finally {

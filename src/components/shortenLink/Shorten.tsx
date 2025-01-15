@@ -6,18 +6,38 @@ import { Link } from "react-router-dom";
 
 const Shorten: React.FC = () => {
   const [shortenedUrl, setShortenedUrl] = useState<string | null>(null);
-  const [qrCode, setQrCode] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const MAX_FREE_LINKS = 5;
+
+  const getShortenedCount = () => {
+    const count = localStorage.getItem("shortenedCount");
+    return count ? parseInt(count, 10) : 0;
+  };
+
+  const incrementShortenedCount = () => {
+    const currentCount = getShortenedCount();
+    localStorage.setItem("shortenedCount", (currentCount + 1).toString());
+  };
+
   const handleShorten = async (url: string) => {
     setError(null);
+
+    const currentCount = getShortenedCount();
+    if (currentCount >= MAX_FREE_LINKS) {
+      setError(
+        `You have reached the limit of ${MAX_FREE_LINKS} links. Please log in for unlimited access.`
+      );
+      return;
+    }
+
     setLoading(true);
 
     try {
       const { shortUrl } = await shortenUrl(url);
       setShortenedUrl(shortUrl);
-      setQrCode(qrCode);
+      incrementShortenedCount(); // Increment the count on successful shortening
     } catch (err) {
       setError("Failed to shorten the URL. Please try again.");
     } finally {
@@ -32,10 +52,8 @@ const Shorten: React.FC = () => {
         <InputField onShorten={handleShorten} isLoading={loading} />
 
         {/* Shortened URL and QR Code */}
-        <ShortenedLink
-          shortenedUrl={shortenedUrl}
-          error={error}
-        />
+        <ShortenedLink shortenedUrl={shortenedUrl} error={error} />
+
         <div className="text-center text-white text-md md:text-lg">
           Want to generate a QR instead?{" "}
           <Link to="/generateqr">
