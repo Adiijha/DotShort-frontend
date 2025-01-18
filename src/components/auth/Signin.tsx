@@ -5,6 +5,7 @@ import { loginUser } from "../../api/api"; // Replace with the correct import pa
 import Cookies from "js-cookie";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { login } from "../../redux/authSlice"; // Adjust to your actual Redux slice action path
+import { Link } from 'react-router-dom';
 
 // Define the root state type
 interface RootState {
@@ -28,7 +29,6 @@ const Signin: React.FC = () => {
 
   // Redirect to dashboard if authenticated
   useEffect(() => {
-    console.log("isAuthenticated changed:", isAuthenticated);
     if (isAuthenticated) {
       navigate("/dashboard");
     }
@@ -72,11 +72,11 @@ const Signin: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center text-white">
+    <div className="min-h-screen flex items-center justify-center text-white px-4 sm:px-0">
       <div className="bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-lg shadow-lg max-w-md w-full">
         <div className="text-center mb-6">
-          <h2 className="text-4xl font-bold mb-2">Welcome Back</h2>
-          <p className="text-gray-400">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-2">Welcome Back</h2>
+          <p className="text-gray-400 text-sm sm:text-base">
             Sign in to access your dashboard and manage your short URLs.
           </p>
         </div>
@@ -125,12 +125,12 @@ const Signin: React.FC = () => {
             {isLoading ? "Signing In..." : "Sign In"}
           </button>
         </form>
-        {error && <p className="text-red-500 text-center mt-2">{error}</p>}
+        {error && <p className="text-red-500 text-center mt-2 text-sm">{error}</p>}
         <p className="text-gray-500 mt-4 text-center text-sm">
           Don't have an account?{' '}
-          <a href="/signup" className="text-blue-500 hover:underline">
+          <Link to="/signup" className="text-blue-500 hover:underline">
             Sign up here
-          </a>
+          </Link>
         </p>
       </div>
     </div>

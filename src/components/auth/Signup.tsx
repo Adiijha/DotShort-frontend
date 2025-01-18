@@ -57,15 +57,17 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center text-white">
+    <div className="min-h-screen flex items-center justify-center text-white px-4 sm:px-0">
       <div className="bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-lg shadow-lg max-w-3xl w-full">
         <div className="text-center mb-6">
-          <h2 className="text-4xl font-bold mb-2">Join DotShort</h2>
-          <p className="text-gray-400">Create an account to unlock exclusive features!</p>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-2">Join DotShort</h2>
+          <p className="text-gray-400 text-sm sm:text-base">
+            Create an account to unlock exclusive features!
+          </p>
         </div>
-        <div className="flex flex-col md:flex-row gap-6">
+        <div className="flex flex-col sm:flex-row gap-6">
           {/* Features Section */}
-          <div className="flex-1 bg-white/5 backdrop-blur-md p-6 rounded-lg">
+          <div className="flex-1 bg-white/5 backdrop-blur-md p-6 rounded-lg mb-6 sm:mb-0">
             <h3 className="text-xl font-semibold mb-4">Why Sign Up?</h3>
             <ul className="list-disc list-inside text-gray-300 space-y-2">
               <li>Custom Short URLs</li>
