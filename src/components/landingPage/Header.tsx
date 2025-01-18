@@ -24,6 +24,12 @@ const Header: React.FC = () => {
 
       {/* Navigation Links (Desktop) */}
       <nav className="hidden sm:flex gap-8">
+        <Link to="/generateqr" className="text-white hover:text-teal-400 transition duration-300 text-lg">
+          QR Generator
+        </Link>
+        <Link to="/shortenlink" className="text-white hover:text-teal-400 transition duration-300 text-lg">
+          Link Shortener
+        </Link>
         <a href="#pricing" className="text-white hover:text-teal-400 transition duration-300 text-lg">
           Pricing
         </a>
@@ -33,12 +39,6 @@ const Header: React.FC = () => {
         <a href="#contact" className="text-white hover:text-teal-400 transition duration-300 text-lg">
           Contact
         </a>
-        <Link to="/generateqr" className="text-white hover:text-teal-400 transition duration-300 text-lg">
-          QR Generator
-        </Link>
-        <Link to="/shortenlink" className="text-white hover:text-teal-400 transition duration-300 text-lg">
-          Link Shortener
-        </Link>
       </nav>
 
       {/* Buttons (Desktop) */}

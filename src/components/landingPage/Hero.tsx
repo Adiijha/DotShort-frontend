@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Particles from 'react-tsparticles';
+import { motion } from 'framer-motion';
 
 const Hero: React.FC = () => {
     return (
@@ -57,7 +58,12 @@ const Hero: React.FC = () => {
             {/* Content Container */}
             <div className="relative z-10 text-center max-w-4xl mx-auto">
                 {/* Heading */}
-                <h1 className="text-5xl sm:text-6xl font-extrabold mb-4 sm:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-600">
+                <motion.h1
+                    className="text-5xl sm:text-6xl font-extrabold mb-4 sm:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-600"
+                    initial={{ opacity: 0, y: -50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1 }}
+                >
                     Short your dotcom with{' '}
                     <span
                         className="text-teal-400 font-extrabold text-shadow-highlight"
@@ -67,30 +73,52 @@ const Hero: React.FC = () => {
                     >
                         DotShort
                     </span>
-                </h1>
+                </motion.h1>
 
                 {/* Subheading */}
-                <p className="text-base sm:text-xl text-gray-300 mb-4 sm:mb-6">
+                <motion.p
+                    className="text-base sm:text-xl text-gray-300 mb-4 sm:mb-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: 0.3 }}
+                >
                     Simplify your URLs with ease and efficiency.
-                </p>
+                </motion.p>
 
                 {/* No login text */}
-                <p className="text-xs sm:text-sm text-gray-400 mb-4 sm:mb-6 italic">
+                <motion.p
+                    className="text-xs sm:text-sm text-gray-400 mb-4 sm:mb-6 italic"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: 0.5 }}
+                >
                     No login required! Start shortening your links or generating QR codes instantly.
-                </p>
+                </motion.p>
 
                 {/* Action Buttons */}
                 <div className="flex flex-row justify-center items-center gap-4 sm:gap-8">
-                    <Link to="/shortenlink">
-                        <button className="bg-teal-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-medium hover:bg-transparent hover:text-teal-500 hover:border-teal-500 hover:border-2 transition duration-300 shadow-lg transform hover:scale-105 border-2 border-transparent">
-                            Shorten a Link
-                        </button>
-                    </Link>
-                    <Link to="/generateqr">
-                        <button className="bg-purple-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-medium hover:bg-transparent hover:text-purple-500 hover:border-purple-500 hover:border-2 transition duration-300 shadow-lg transform hover:scale-105 border-2 border-transparent">
-                            Generate QR
-                        </button>
-                    </Link>
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay: 0.7 }}
+                    >
+                        <Link to="/shortenlink">
+                            <button className="bg-teal-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-medium hover:bg-transparent hover:text-teal-500 hover:border-teal-500 hover:border-2 transition duration-300 shadow-lg transform hover:scale-105 border-2 border-transparent">
+                                Shorten a Link
+                            </button>
+                        </Link>
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay: 0.9 }}
+                    >
+                        <Link to="/generateqr">
+                            <button className="bg-purple-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-medium hover:bg-transparent hover:text-purple-500 hover:border-purple-500 hover:border-2 transition duration-300 shadow-lg transform hover:scale-105 border-2 border-transparent">
+                                Generate QR
+                            </button>
+                        </Link>
+                    </motion.div>
                 </div>
             </div>
         </div>
