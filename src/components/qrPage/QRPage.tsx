@@ -8,7 +8,7 @@ const QRPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [url, setUrl] = useState<string>("");
 
-  const MAX_FREE_QR = 5;
+  const MAX_FREE_QR = 10;
 
   const getQrCount = () => {
     const count = localStorage.getItem("qrCount");

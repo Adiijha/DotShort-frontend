@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from "react-route
 import Hero from "./components/landingPage/Hero";
 import Shorten from "./components/shortenLink/Shorten";
 import QRPage from "./components/qrPage/QRPage";
+import QRPagePaid from "./components/qrPaid/QRPage";
 import Signin from "./components/auth/Signin";
 import Signup from "./components/auth/Signup";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -11,6 +12,11 @@ import store from "./redux/store";
 import NoHeaderFooterLayout from "./components/layout/NoHeaderFooterLayout";
 import MainLayout from "./components/layout/HeaderFooterLayout"; // Import MainLayout here
 import bg from "./assets/bg.jpg";
+import LinkShort from "./components/LinkShortPaid/LinkShort";
+import Analytics from "./components/analytics/Analytics";
+import ProtectedLink from "./components/protectedLinks/ProtectedLink";
+import SavedLinks from "./components/savedLinks/SavedLinks";
+import Profile from "./components/profile/Profile";
 
 // ScrollToTop Component
 const ScrollToTop = () => {
@@ -58,6 +64,55 @@ const App: React.FC = () => {
                 </NoHeaderFooterLayout>
               }
             />
+            <Route
+              path="/dashboard/qr"
+              element={
+                <NoHeaderFooterLayout>
+                  <QRPagePaid />
+                </NoHeaderFooterLayout>
+              }
+            />
+            <Route
+              path="/dashboard/shortlink"
+              element={
+                <NoHeaderFooterLayout>
+                  <LinkShort />
+                </NoHeaderFooterLayout>
+              }
+            />
+            <Route
+              path="/dashboard/analytics"
+              element={
+                <NoHeaderFooterLayout>
+                  <Analytics />
+                </NoHeaderFooterLayout>
+              }
+            />
+            <Route
+              path="/dashboard/protectedlinks"
+              element={
+                <NoHeaderFooterLayout>
+                  <ProtectedLink />
+                </NoHeaderFooterLayout>
+              }
+            />
+            <Route
+              path="/dashboard/savedlinks"
+              element={
+                <NoHeaderFooterLayout>
+                  <SavedLinks />
+                </NoHeaderFooterLayout>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <NoHeaderFooterLayout>
+                  <Profile />
+                </NoHeaderFooterLayout>
+              }
+            />
+
           </Routes>
         </div>
       </Router>

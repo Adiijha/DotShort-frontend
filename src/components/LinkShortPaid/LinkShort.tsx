@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import InputField from "./InputField";
-import ShortenedLink from "./ShortenedLink";
+import InputField from "../shortenLink/InputField";
+import ShortenedLink from "../shortenLink/ShortenedLink";
 import { shortenUrl } from "../../api/api";
 import { Link } from "react-router-dom";
+import Header from "../dashboard/Header";
 
-const Shorten: React.FC = () => {
+const LinkShort: React.FC = () => {
   const [shortenedUrl, setShortenedUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const MAX_FREE_LINKS = 10;
+  const MAX_FREE_LINKS = 50;
 
   const getShortenedCount = () => {
     const count = localStorage.getItem("shortenedCount");
@@ -46,23 +47,34 @@ const Shorten: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col py-10 md:py-12 px-2 md:px-6">
-      <div className="w-full p-0 md:p-8">
-        {/* Input Field */}
-        <InputField onShorten={handleShorten} isLoading={loading} />
+    <div className="flex flex-col sm:flex-row min-h-screen text-white">
+      {/* Sidebar (Header Component) */}
+      <Header />
 
-        {/* Shortened URL and QR Code */}
-        <ShortenedLink shortenedUrl={shortenedUrl} error={error} />
+      {/* Main Content Area */}
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
+        <div className="w-full max-w-xl bg-white/10 backdrop-blur-lg border border-white/20 p-6 sm:p-8 rounded-xl shadow-xl space-y-6">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-center text-teal-400">
+            Shorten Your Link
+          </h2>
 
-        <div className="text-center text-white text-md md:text-lg">
-          Want to generate a QR instead?{" "}
-          <Link to="/generateqr">
-            <span className="text-teal-400">Generate QR</span>
-          </Link>
+          {/* Input Field */}
+          <InputField onShorten={handleShorten} isLoading={loading} />
+
+          {/* Shortened URL and Error Display */}
+          <ShortenedLink shortenedUrl={shortenedUrl} error={error} />
+
+          {/* Navigation Link */}
+          <div className="text-center text-sm sm:text-lg text-gray-300">
+            Want to generate a QR instead?{" "}
+            <Link to="/dashboard/qr" className="text-teal-400 hover:underline">
+              Generate QR
+            </Link>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Shorten;
+export default LinkShort;
