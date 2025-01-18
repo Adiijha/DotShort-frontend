@@ -33,12 +33,16 @@ const Header: React.FC = () => {
 
             {/* Buttons */}
             <div className="hidden sm:flex space-x-6">
+                <Link to="/signup">
                 <button className="text-white bg-teal-500 hover:bg-transparent hover:text-teal-500 border-2 border-teal-500 px-6 py-2 rounded-full font-medium transition duration-300 transform">
                     Sign Up
                 </button>
+                </Link>
+                <Link to="/signin">
                 <button className="text-white bg-purple-500 hover:bg-transparent hover:text-purple-500 border-2 border-purple-500 px-6 py-2 rounded-full font-medium transition duration-300 transform">
                     Sign In
                 </button>
+                </Link>
             </div>
 
         </header>
