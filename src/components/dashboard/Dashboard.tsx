@@ -31,7 +31,7 @@ const Dashboard: React.FC = () => {
       <div className="flex-1 p-6 sm:p-8">
         {/* Topbar */}
           {userName && (
-            <p className="text-3xl sm:text-4xl font-medium text-white mb-4 md:mb-10 mt-3 md:mt-8">
+            <p className="text-3xl sm:text-4xl font-bold text-white mb-4 md:mb-10 mt-3 md:mt-8">
               Welcome, <span className="text-teal-500">{userName}</span>!
             </p>
           )}
