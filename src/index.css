@@ -12,4 +12,7 @@
     background-size: 400% 400%;
     animation: gradientMove 15s ease infinite;
   }
+  body {
+    font-family: 'Poppins', sans-serif;
+  }
   
