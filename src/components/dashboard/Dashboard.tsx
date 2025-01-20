@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from './Header';
+import { getUserProfile } from '../../api/api';
 
 const Dashboard: React.FC = () => {
+  const [userName, setUserName] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUserName = async () => {
+      try {
+        const profile = await getUserProfile();
+        setUserName(profile.name); // Set the user's name
+      } catch (err: any) {
+        setError(err.message || 'Failed to fetch user profile.'); // Handle errors
+      }
+    };
+
+    fetchUserName();
+  }, []);
+
   return (
     <div className="flex flex-col md:flex-row min-h-screen text-white">
       {/* Sidebar */}
@@ -13,12 +30,21 @@ const Dashboard: React.FC = () => {
       {/* Main Content Area */}
       <div className="flex-1 p-6 sm:p-8">
         {/* Topbar */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8">
+          {userName && (
+            <p className="text-3xl sm:text-4xl font-medium text-white mb-4 md:mb-10 mt-3 md:mt-8">
+              Welcome, <span className="text-teal-500">{userName}</span>!
+            </p>
+          )}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
           <h2 className="text-2xl sm:text-3xl font-semibold text-teal-500">Dashboard</h2>
-          <div className="flex items-center gap-4 mt-4 sm:mt-0">
-            {/* Optional topbar actions */}
-          </div>
         </div>
+
+        {/* Error Message */}
+        {error && (
+          <div className="text-red-500 bg-red-100 p-4 rounded-lg mb-6">
+            {error}
+          </div>
+        )}
 
         {/* Main Grid (showing different sections) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -28,7 +54,8 @@ const Dashboard: React.FC = () => {
             <p className="text-sm sm:text-base text-gray-400">
               You have 120 URLs shortened. Manage and view your links.
             </p>
-            <Link to="/dashboard/shortlink"
+            <Link
+              to="/dashboard/shortlink"
               className="text-teal-500 hover:underline mt-4 inline-block text-sm sm:text-base"
             >
               View My URLs
@@ -58,7 +85,8 @@ const Dashboard: React.FC = () => {
             <p className="text-sm sm:text-base text-gray-400">
               View clicks, performance, and more.
             </p>
-            <Link to="/dashboard/analytics"
+            <Link
+              to="/dashboard/analytics"
               className="text-teal-500 hover:underline mt-4 inline-block text-sm sm:text-base"
             >
               View Analytics
@@ -66,7 +94,7 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Recent Activity or Stats (Optional) */}
+        {/* Recent Activity */}
         <div className="mt-8 bg-white/10 backdrop-blur-sm p-6 rounded-lg shadow-md border border-white/20">
           <h3 className="text-lg sm:text-xl font-semibold mb-4">Recent Activity</h3>
           <ul className="text-sm sm:text-base">
