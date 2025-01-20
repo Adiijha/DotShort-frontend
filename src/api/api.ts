@@ -5,11 +5,13 @@ const USER_URL = import.meta.env.VITE_API_USER_URL;
 
 interface ShortenUrlResponse {
   shortUrl: string;
+  expiresAt?: string; // Optional expiration date
 }
 
 interface QrUrlResponse {
   qrCode: string;
 }
+
 
 interface LoginResponse {
   data: {
@@ -44,17 +46,38 @@ interface UserProfile {
   email: string;
 }
 
-export const shortenUrl = async (url: string): Promise<ShortenUrlResponse> => {
-  try {
-    const response = await axios.post(`${BACKEND_URL}/shorten`, { longUrl: url });
-    const { shortUrl } = response.data.data;
 
-    return { shortUrl };
+export const shortenUrl = async (
+  url: string,
+  shortCode?: string,
+  password?: string,
+  expireInHours?: number
+): Promise<ShortenUrlResponse> => {
+  try {
+    // Prepare the request body with optional parameters
+    const requestBody: any = {
+      longUrl: url,
+    };
+
+    if (shortCode) requestBody.shortCode = shortCode;
+    if (password) requestBody.password = password;
+    if (expireInHours) requestBody.expireInHours = expireInHours;
+
+    // Send request to the backend
+    const response = await axios.post(`${BACKEND_URL}/shorten`, requestBody);
+
+    // Ensure response only contains the needed data: shortUrl and expiresAt
+    const { shortUrl, expiresAt } = response.data.data;
+
+    // Return only the necessary data (no QR code in response)
+    return { shortUrl, expiresAt };
   } catch (error) {
     console.error("Error shortening the URL:", error);
     throw new Error("Error shortening the URL. Please try again.");
   }
 };
+
+
 
 export const qrUrl = async (url: string): Promise<QrUrlResponse> => {
   try {
@@ -67,6 +90,7 @@ export const qrUrl = async (url: string): Promise<QrUrlResponse> => {
     throw new Error("Error shortening the QR. Please try again.");
   }
 };
+
 
 export const loginUser = async (
   emailOrUsername: string,

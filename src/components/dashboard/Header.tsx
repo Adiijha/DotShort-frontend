@@ -1,5 +1,5 @@
 import { AiOutlineLogout } from 'react-icons/ai'; // Add logout icon
-import { FaChartBar, FaLink, FaUser, FaQrcode, FaEye, FaChartLine } from 'react-icons/fa'; // For dashboard items
+import { FaChartBar, FaLink, FaUser, FaQrcode, FaChartLine } from 'react-icons/fa'; // For dashboard items
 import { logout } from '../../redux/authSlice';
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
@@ -56,7 +56,7 @@ const Header: React.FC = () => {
                 isActiveLink('/dashboard/shortlink') ? 'text-teal-500' : ''
               }`}
             >
-              <FaLink size={20} /> <span>Your Short URLs</span>
+              <FaLink size={20} /> <span>Short URL</span>
             </button>
           </Link>
         </li>
@@ -67,7 +67,7 @@ const Header: React.FC = () => {
                 isActiveLink('/dashboard/qr') ? 'text-teal-500' : ''
               }`}
             >
-              <FaQrcode size={20} /> <span>QR Code Generator</span>
+              <FaQrcode size={20} /> <span>QR Code</span>
             </button>
           </Link>
         </li>
@@ -79,17 +79,6 @@ const Header: React.FC = () => {
               }`}
             >
               <FaChartLine size={20} /> <span>Analytics</span>
-            </button>
-          </Link>
-        </li>
-        <li className="mb-6">
-          <Link to="/dashboard/protectedlinks">
-            <button
-              className={`flex items-center text-lg gap-3 text-gray-400 hover:text-white ${
-                isActiveLink('/dashboard/protectedlinks') ? 'text-teal-500' : ''
-              }`}
-            >
-              <FaEye size={20} /> <span>Protect Your URL</span>
             </button>
           </Link>
         </li>
